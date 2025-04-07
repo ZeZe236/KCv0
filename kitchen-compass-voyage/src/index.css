@@ -1,0 +1,426 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 25 100% 18%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 22 74% 50%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 30 50% 70%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 25 100% 18%;
+    --sidebar-foreground: 30 100% 80%;
+    --sidebar-primary: 25 100% 30%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 25 100% 25%;
+    --sidebar-accent-foreground: 30 100% 80%;
+    --sidebar-border: 25 100% 30%;
+    --sidebar-ring: 22 74% 45%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  button,
+  a {
+    @apply transition-all duration-200;
+  }
+}
+
+.pantry-bubble {
+  @apply bg-kitchen-cream text-kitchen-brown rounded-full px-3 py-1 m-1 text-sm font-medium cursor-pointer transition-all;
+}
+
+.pantry-bubble:hover {
+  @apply bg-kitchen-orange text-white transform scale-105;
+}
+
+.pantry-bubble.active {
+  @apply bg-kitchen-orange text-white;
+}
+
+.wheel-segment {
+  @apply h-full w-full absolute top-0 left-0 bg-kitchen-cream rounded-full origin-center transform rotate-0 hover:bg-kitchen-peach transition-colors;
+  clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 50% 100%);
+}
+
+.wheel-segment-1 {
+  transform: rotate(0deg);
+}
+
+.wheel-segment-2 {
+  transform: rotate(60deg);
+}
+
+.wheel-segment-3 {
+  transform: rotate(120deg);
+}
+
+.wheel-segment-4 {
+  transform: rotate(180deg);
+}
+
+.wheel-segment-5 {
+  transform: rotate(240deg);
+}
+
+.wheel-segment-6 {
+  transform: rotate(300deg);
+}
+
+.wheel-segment-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.wheel-segment-text {
+  position: absolute;
+  width: 100px;
+  text-align: center;
+  color: var(--kitchen-brown);
+  font-weight: 500;
+  font-size: 0.9rem;
+  line-height: 1.1;
+  word-wrap: break-word;
+  transform-origin: center;
+  padding: 4px;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.wheel-segment-1 .wheel-segment-text {
+  top: 20px;
+  right: -30px;
+  transform: rotate(-30deg);
+}
+
+.wheel-segment-2 .wheel-segment-text {
+  top: 60px;
+  right: 10px;
+  transform: rotate(30deg);
+}
+
+.wheel-segment-3 .wheel-segment-text {
+  bottom: 30px;
+  right: -30px;
+  transform: rotate(90deg);
+}
+
+.wheel-segment-4 .wheel-segment-text {
+  bottom: 30px;
+  left: -30px;
+  transform: rotate(150deg);
+}
+
+.wheel-segment-5 .wheel-segment-text {
+  top: 30px;
+  left: -30px;
+  transform: rotate(210deg);
+}
+
+.wheel-segment-6 .wheel-segment-text {
+  top: 30px;
+  left: -30px;
+  transform: rotate(270deg);
+}
+
+.wheel-center {
+  @apply absolute top-1/2 left-1/2 w-16 h-16 bg-kitchen-orange text-white rounded-full -translate-x-1/2 -translate-y-1/2 flex items-center justify-center shadow-md z-10 hover:animate-pulse;
+}
+
+.cute-shadow {
+  box-shadow: 0 4px 6px -1px rgba(91, 39, 0, 0.1), 0 2px 4px -1px rgba(91, 39, 0, 0.06);
+}
+
+.cute-bubble {
+  @apply bg-kitchen-peach text-kitchen-brown rounded-full px-4 py-2 transition-all hover:transform hover:scale-105;
+}
+
+.cute-card {
+  @apply bg-white rounded-2xl shadow-lg border-2 border-kitchen-cream p-6 transition-all hover:shadow-xl;
+}
+
+.cute-button {
+  @apply bg-kitchen-orange text-white rounded-full px-6 py-2 hover:bg-orange-600 shadow-md hover:shadow-lg transition-all transform hover:scale-105;
+}
+
+.pantry-sidebar {
+  @apply fixed top-0 right-0 h-full bg-white shadow-lg z-40 transition-all duration-300 ease-in-out overflow-y-auto;
+  width: 320px;
+}
+
+.pantry-sidebar.closed {
+  @apply translate-x-full;
+}
+
+.pantry-sidebar.open {
+  @apply translate-x-0;
+}
+
+.pantry-toggle-btn {
+  @apply fixed right-4 top-4 z-50 bg-kitchen-orange text-white p-2 rounded-full shadow-md hover:bg-orange-600 transition-all;
+}
+
+.pantry-overlay {
+  @apply fixed inset-0 bg-black z-30 transition-opacity duration-300;
+}
+
+.pantry-overlay.open {
+  @apply opacity-30;
+}
+
+.pantry-overlay.closed {
+  @apply opacity-0 pointer-events-none;
+}
+
+/* Add these styles at the end of your CSS file */
+
+/* Animate the pantry toggle button */
+@keyframes pulse-orange {
+
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7);
+  }
+
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(249, 115, 22, 0);
+  }
+}
+
+/* Show a subtle pulse animation when the pantry is empty */
+.pantry-empty-pulse {
+  animation: pulse-orange 2s infinite;
+}
+
+/* Smooth scrollbar for the pantry */
+#pantry-sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(249, 115, 22, 0.3) rgba(255, 255, 255, 0.1);
+}
+
+#pantry-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+#pantry-sidebar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+#pantry-sidebar::-webkit-scrollbar-thumb {
+  background-color: rgba(249, 115, 22, 0.3);
+  border-radius: 6px;
+}
+
+/* Style for vertical text in the toggle panel */
+.vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  transform-origin: center;
+}
+
+/* For browsers that don't support writing-mode well, add a fallback */
+@supports not (writing-mode: vertical-rl) {
+  .vertical-text {
+    transform: rotate(90deg);
+    white-space: nowrap;
+    margin-top: 40px;
+  }
+}
+
+/* Style for the pantry toggle panel */
+#pantry-toggle-panel {
+  transition: all 0.3s ease;
+}
+
+#pantry-toggle-panel:hover {
+  filter: brightness(1.1);
+}
+
+/* Make the panel more visible on hover */
+#pantry-toggle-panel:hover .vertical-text {
+  transform: scale(1.05);
+}
+
+/* Adjust padding for main content when sidebar is open */
+.main-content {
+  transition: padding-left 0.3s ease-in-out;
+}
+
+.main-content.sidebar-open {
+  padding-left: 320px;
+}
+
+/* Animation when adding a new ingredient */
+@keyframes pop-in {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.ingredient-pop-in {
+  animation: pop-in 0.3s forwards;
+}
+
+/* Add these styles for the scrollable suggestions */
+
+/* Vertically scrollable suggestions container */
+.quick-suggestions-scroll-vertical {
+  max-height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 0.5rem;
+  border-radius: 0.25rem;
+  background-color: #f9fafb;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(232, 110, 67, 0.3) rgba(255, 255, 255, 0.1);
+}
+
+.quick-suggestions-scroll-vertical::-webkit-scrollbar {
+  width: 6px;
+}
+
+.quick-suggestions-scroll-vertical::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.quick-suggestions-scroll-vertical::-webkit-scrollbar-thumb {
+  background-color: rgba(232, 110, 67, 0.3);
+  border-radius: 3px;
+}
+
+.suggestions-container-vertical {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+.suggestion-badge {
+  transition: all 0.2s ease;
+  margin-bottom: 0.125rem;
+}
+
+.suggestion-badge:hover {
+  background-color: #ecfdf5;
+  color: #047857;
+  transform: translateY(-1px);
+}
+
+/* For the ingredients scrollbar */
+.ingredients-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(232, 110, 67, 0.3) rgba(255, 255, 255, 0.1);
+}
+
+.ingredients-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ingredients-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.ingredients-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(232, 110, 67, 0.3);
+  border-radius: 3px;
+}
