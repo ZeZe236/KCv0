@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, PanelsTopLeft, Plus, Search, ChevronRight, ChevronLeft, ArrowLeft, ArrowRight } from 'lucide-react';
+import { X, PanelsTopLeft, Plus, Search, ChevronRight, ChevronLeft, ArrowLeft, ArrowRight, ShoppingBasket } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface PantrySidebarProps {
     pantryIngredients: string[];
@@ -97,102 +98,60 @@ const PantrySidebar: React.FC<PantrySidebarProps> = ({
 
     return (
         <>
-            {/* Vertical toggle panel on the left */}
-            <div
-                id="pantry-toggle-panel"
-                className={`fixed left-0 top-0 h-full z-40 flex items-center transition-all duration-300 ${isOpen ? 'left-[320px]' : 'left-0'
-                    }`}
+            {/* Toggle button for pantry sidebar - positioned to extend full height from below navbar */}
+            <button
                 onClick={toggleSidebar}
+                className="fixed top-16 left-0 bottom-0 z-20 bg-kitchen-orange text-kitchen-cream p-2 rounded-r-lg flex items-center shadow-lg h-auto"
+                aria-label="Toggle pantry"
             >
-                <div className="h-[200px] w-8 bg-kitchen-orange rounded-r-lg flex flex-col items-center justify-center cursor-pointer hover:bg-orange-600 transition-colors shadow-md">
-                    <div className="text-white mb-2">
-                        {isOpen ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
+                {isOpen ? <ChevronLeft className="h-6 w-6" /> : (
+                    <div className="flex flex-col items-center gap-2">
+                        <ShoppingBasket className="h-6 w-6" />
+                        <div className="vertical-text font-pixel">MY PANTRY</div>
                     </div>
-                    <div className="vertical-text py-2">
-                        PANTRY
-                    </div>
-                    <div className="text-white text-xs mt-2 bg-green-800 rounded-full h-6 w-6 flex items-center justify-center">
-                        {pantryIngredients.length}
-                    </div>
-                </div>
-            </div>
-
-            {/* Overlay for closing when clicking outside */}
-            <div
-                className={`fixed inset-0 bg-black transition-opacity duration-300 z-30 ${isOpen ? 'opacity-30' : 'opacity-0 pointer-events-none'
-                    }`}
-                onClick={toggleSidebar}
-            ></div>
+                )}
+            </button>
 
             {/* Pantry sidebar */}
-            <aside
-                id="pantry-sidebar"
-                className={`fixed top-0 left-0 h-full w-80 bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out overflow-y-auto ${isOpen ? 'translate-x-0' : '-translate-x-full'
+            <div
+                className={`fixed top-16 left-0 bottom-0 w-80 bg-white shadow-xl z-30 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'
                     }`}
             >
-                <div className="p-6">
-                    <div className="flex justify-between items-center mb-6">
-                        <h2 className="text-xl font-semibold text-kitchen-brown">My Pantry</h2>
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={toggleSidebar}
-                            className="text-kitchen-brown hover:text-kitchen-orange"
-                        >
-                            <X size={20} />
+                <div className="h-full flex flex-col">
+                    <div className="p-4 bg-kitchen-cream border-b flex justify-between items-center">
+                        <h2 className="text-xl font-pixel text-kitchen-brown flex items-center gap-2">
+                            <ShoppingBasket className="h-5 w-5" />
+                            My Pantry
+                        </h2>
+                        <Button size="sm" variant="ghost" onClick={toggleSidebar} className="h-8 w-8 p-0">
+                            <X className="h-5 w-5" />
                         </Button>
                     </div>
 
-                    <div className="mb-6">
-                        <div className="flex gap-2 mb-4">
+                    {/* Add ingredient input */}
+                    <div className="p-4 border-b">
+                        <p className="text-sm text-kitchen-brown mb-2">Add ingredients you have on hand:</p>
+                        <div className="flex space-x-2 ">
                             <Input
-                                placeholder="Add new ingredient..."
                                 value={newIngredient}
                                 onChange={(e) => setNewIngredient(e.target.value)}
                                 onKeyDown={handleKeyDown}
+                                placeholder="Type an ingredient..."
                                 className="flex-1"
                             />
-                            <Button
-                                onClick={handleAddIngredient}
-                                size="icon"
-                                className="bg-kitchen-orange hover:bg-orange-600 text-white"
-                            >
-                                <Plus size={18} />
+                            <Button onClick={handleAddIngredient} size="sm" className="bg-kitchen-orange hover:bg-kitchen-orange/90">
+                                <Plus className="h-4 w-4" />
                             </Button>
                         </div>
                     </div>
 
-                    {/* Search box for filtering pantry ingredients */}
-                    <div className="mb-4 relative">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <Search className="h-4 w-4 text-gray-400" />
-                        </div>
-                        <Input
-                            type="text"
-                            placeholder="Search ingredients..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className="pl-10"
-                        />
-                        {searchTerm && (
-                            <button
-                                onClick={() => setSearchTerm('')}
-                                className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                            >
-                                <X className="h-4 w-4 text-gray-400 hover:text-gray-600" />
-                            </button>
-                        )}
-                    </div>
-
-                    <div className="mb-6">
-                        <div className="flex justify-between items-center mb-2">
-                            <h3 className="text-sm font-medium text-gray-500">Your Ingredients</h3>
-                            <span className="text-xs text-gray-400">
-                                {pantryIngredients.length} items
-                            </span>
-                        </div>
-                        <div className="max-h-40 overflow-y-auto pr-2 ingredients-scrollbar">
-                            <div className="flex flex-wrap gap-2">
+                    {/* Current pantry ingredients */}
+                    <div className="p-4 border-b flex-1 overflow-auto">
+                        <h3 className="text-sm font-medium text-kitchen-brown mb-2">My Ingredients</h3>
+                        {pantryIngredients.length === 0 ? (
+                            <p className="text-sm text-muted-foreground italic">No ingredients added yet.</p>
+                        ) : (
+                            <div className="flex flex-wrap gap-1">
                                 {filteredIngredients.length > 0 ? (
                                     filteredIngredients.map(ingredient => (
                                         <Badge
@@ -217,21 +176,14 @@ const PantrySidebar: React.FC<PantrySidebarProps> = ({
                                     <p className="text-sm text-gray-400">No ingredients added yet</p>
                                 )}
                             </div>
-                        </div>
+                        )}
                     </div>
 
-                    {/* Quick suggestions - Vertically Scrollable */}
-                    <div className="mt-6 pt-4 border-t">
-                        <div className="flex justify-between items-center mb-2">
-                            <h3 className="text-sm font-medium text-gray-500">Quick Add Suggestions</h3>
-                            <span className="text-xs text-gray-400">
-                                {availableSuggestions.length} available
-                            </span>
-                        </div>
-
-                        {/* Vertically scrollable suggestions */}
-                        <div className="quick-suggestions-scroll-vertical">
-                            <div className="suggestions-container-vertical">
+                    {/* Common ingredients suggestions */}
+                    <div className="p-4">
+                        <h3 className="text-sm font-medium text-kitchen-brown mb-2">Common Ingredients</h3>
+                        <ScrollArea className="h-40">
+                            <div className="flex flex-wrap gap-1">
                                 {availableSuggestions.length > 0 ? (
                                     availableSuggestions.map(suggestion => (
                                         <Badge
@@ -249,16 +201,26 @@ const PantrySidebar: React.FC<PantrySidebarProps> = ({
                                     </p>
                                 )}
                             </div>
-                        </div>
-                    </div>
-
-                    <div className="mt-auto pt-4 border-t mt-6">
-                        <p className="text-sm text-gray-500">
-                            Ingredients in your pantry will be used for recipe suggestions.
-                        </p>
+                        </ScrollArea>
                     </div>
                 </div>
-            </aside>
+            </div>
+
+            {/* Overlay when sidebar is open */}
+            {isOpen && (
+                <div
+                    className="fixed inset-0 bg-black bg-opacity-50 z-10"
+                    onClick={toggleSidebar}
+                />
+            )}
+
+            <style jsx>{`
+                .vertical-text {
+                    writing-mode: vertical-rl;
+                    text-orientation: mixed;
+                    transform: rotate(0deg);
+                }
+            `}</style>
         </>
     );
 };

@@ -87,10 +87,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, selectedIngredients = [
                   )}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-64 p-4" align="end">
-                <div className="space-y-3">
+              <PopoverContent className="w-[556px] p-6 mt-1" align="end">
+                <div className="space-y-1">
                   <h4 className="font-medium text-kitchen-brown">Dietary Preferences</h4>
-                  <div className="grid grid-cols-1 gap-2">
+                  <div className="grid grid-cols-2 gap-2">
                     {dietaryOptions.map(option => (
                       <div key={option.id} className="flex items-center space-x-2">
                         <Checkbox

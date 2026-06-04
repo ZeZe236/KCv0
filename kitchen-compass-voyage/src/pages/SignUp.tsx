@@ -31,7 +31,7 @@ const SignUp: React.FC = () => {
         title: "Sign up successful",
         description: "Welcome to Kitchen Compass!",
       });
-      navigate('/');
+      navigate('/login');
     } catch (error) {
       toast({
         title: "Sign up failed",

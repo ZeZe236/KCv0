@@ -1,17 +1,16 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
-import { 
-  LogOut, 
-  Home, 
-  Heart, 
-  UtensilsCrossed, 
-  Sparkles, 
-  HelpCircle 
+import {
+  LogOut,
+  Home,
+  Heart,
+  UtensilsCrossed,
+  Sparkles,
+  HelpCircle
 } from 'lucide-react';
-import { 
+import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
@@ -24,7 +23,7 @@ import { cn } from "@/lib/utils";
 const Navbar: React.FC = () => {
   const { isAuthenticated, logout } = useAuth();
   const [hovered, setHovered] = useState<string | null>(null);
-  
+
   return (
     <nav className="bg-white bg-opacity-85 backdrop-blur-sm shadow-sm sticky top-0 z-50 py-2">
       <div className="max-w-7xl mx-auto px-4">
@@ -35,12 +34,12 @@ const Navbar: React.FC = () => {
               <span className="font-pixel text-xl text-kitchen-brown">Kitchen Compass</span>
             </Link>
           </div>
-          
+
           <NavigationMenu className="hidden md:flex">
             <NavigationMenuList>
               <NavigationMenuItem>
-                <Link 
-                  to="/" 
+                <Link
+                  to="/"
                   className={cn(
                     "px-4 py-2 text-base font-pixel font-medium text-kitchen-brown hover:text-kitchen-orange transition-colors flex items-center gap-1 relative",
                     hovered === 'home' && "text-kitchen-orange"
@@ -55,9 +54,9 @@ const Navbar: React.FC = () => {
                   )}
                 </Link>
               </NavigationMenuItem>
-              
+
               <NavigationMenuItem>
-                <NavigationMenuTrigger 
+                <NavigationMenuTrigger
                   className="px-4 py-2 text-base font-pixel font-medium text-kitchen-peach hover:text-kitchen-orange transition-colors rounded-full"
                 >
                   <Sparkles className="h-4 w-4 mr-1" />
@@ -67,19 +66,19 @@ const Navbar: React.FC = () => {
                   <div className="w-60 p-4 bg-kitchen-white rounded-lg shadow-lg">
                     <div className="grid gap-3">
                       <Link
-                        to="/"
+                        to="/trending-recipes"
                         className="flex p-2 hover:bg-kitchen-peach rounded-md transition-colors"
                       >
                         <div className="text-kitchen-brown font-medium">Trending Recipes</div>
                       </Link>
                       <Link
-                        to="/"
+                        to="/quick-meals"
                         className="flex p-2 hover:bg-kitchen-peach rounded-md transition-colors"
                       >
                         <div className="text-kitchen-brown font-medium">Quick Meals</div>
                       </Link>
                       <Link
-                        to="/"
+                        to="/seasonal-favorites"
                         className="flex p-2 hover:bg-kitchen-peach rounded-md transition-colors"
                       >
                         <div className="text-kitchen-brown font-medium">Seasonal Favorites</div>
@@ -88,10 +87,10 @@ const Navbar: React.FC = () => {
                   </div>
                 </NavigationMenuContent>
               </NavigationMenuItem>
-              
+
               <NavigationMenuItem>
-                <Link 
-                  to="/" 
+                <Link
+                  to="/help"
                   className="px-4 py-2 text-base font-pixel font-medium text-kitchen-brown hover:text-kitchen-orange transition-colors flex items-center gap-1"
                 >
                   <HelpCircle className="h-4 w-4" />
@@ -100,19 +99,19 @@ const Navbar: React.FC = () => {
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
-          
+
           <div className="flex space-x-1">
             {isAuthenticated ? (
               <div className="flex items-center gap-3">
-                <Link 
-                  to="/favorites" 
+                <Link
+                  to="/favorites"
                   className="p-2 rounded-full bg-kitchen-cream hover:bg-kitchen-peach transition-colors"
                   aria-label="Favorites"
                 >
                   <Heart className="h-5 w-5 text-kitchen-orange hover:animate-bounce-light" />
                 </Link>
-                <Button 
-                  variant="ghost" 
+                <Button
+                  variant="ghost"
                   className="px-4 py-2 text-base font-pixel font-medium text-kitchen-brown hover:bg-kitchen-peach hover:text-kitchen-brown transition-colors rounded-full"
                   onClick={logout}
                 >
@@ -122,14 +121,14 @@ const Navbar: React.FC = () => {
               </div>
             ) : (
               <>
-                <Link 
-                  to="/login" 
+                <Link
+                  to="/login"
                   className="px-6 py-2 text-base font-pixel font-medium text-kitchen-brown bg-kitchen-cream hover:bg-kitchen-peach transition-colors rounded-full"
                 >
                   login
                 </Link>
-                <Link 
-                  to="/signup" 
+                <Link
+                  to="/signup"
                   className="px-6 py-2 text-base font-pixel font-medium text-white bg-kitchen-orange hover:bg-orange-600 transition-colors rounded-full"
                 >
                   sign up
@@ -139,25 +138,25 @@ const Navbar: React.FC = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="block md:hidden mt-2 border-t border-gray-100">
         <div className="flex justify-around px-2 py-1">
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="p-2 text-xs font-pixel text-kitchen-brown flex flex-col items-center"
           >
             <Home className="h-5 w-5" />
             Home
           </Link>
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="p-2 text-xs font-pixel text-kitchen-brown flex flex-col items-center"
           >
             <Sparkles className="h-5 w-5" />
             Recipes
           </Link>
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="p-2 text-xs font-pixel text-kitchen-brown flex flex-col items-center"
           >
             <HelpCircle className="h-5 w-5" />
